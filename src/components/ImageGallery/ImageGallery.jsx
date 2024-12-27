@@ -4,7 +4,9 @@ import css from "../ImageGallery/ImageGallery.module.css";
 
 const ImageGallery = ({ data, find, closeModal }) => {
   useEffect(() => {
+    // console.log("Event Listener Added");
     function handleKeyDown(e) {
+      // console.log("KeyDown Event Triggered:", e.key);
       if (e.key === "Escape") {
         closeModal();
       }
@@ -13,6 +15,7 @@ const ImageGallery = ({ data, find, closeModal }) => {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      // console.log("Event Listener Removed");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [closeModal]);
@@ -21,9 +24,6 @@ const ImageGallery = ({ data, find, closeModal }) => {
       find("");
       closeModal();
     }
-    window.addEventListener("keydown", showBigImg);
-
-    window.removeEventListener("keydown", showBigImg);
 
     return find(e.target.id);
   }
