@@ -42,6 +42,8 @@ function App() {
         if (response.total_pages === page) {
           setIsLastPage(false);
         }
+        // console.log(data);
+
         setData((prev) => [...prev, ...response.results]);
       } catch (e) {
         setIsError(true);
@@ -53,7 +55,7 @@ function App() {
   }, [query, page]);
 
   function findId(test) {
-    data.filter((id) => {
+    data.find((id) => {
       if (test === id.id) {
         setBigImg(id.urls.regular);
         openModal();
@@ -69,12 +71,15 @@ function App() {
       <ImageGallery data={data} find={findId} closeModal={closeModal} />
       <Loader load={isLoad} />
       {isError && <ErrorMessage />}
-      {data.length > 0 && isLastPage && <LoadMore changePage={setPage} />}
+      {data.length > 0 && isLastPage && (
+        <LoadMore changePage={() => setPage((prev) => prev + 1)} />
+      )}
       {isOpenModal && (
         <ImageModal
           urlImg={bigImg}
           click={openModal}
           onRequestClose={closeModal}
+          onCloseModal={closeModal}
         />
       )}
     </>
