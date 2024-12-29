@@ -1,33 +1,7 @@
-// import { useEffect } from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import css from "../ImageGallery/ImageGallery.module.css";
 
-const ImageGallery = ({ data, find, closeModal }) => {
-  // useEffect(() => {
-
-  //   function handleKeyDown(e) {
-
-  //     if (e.key === "Escape") {
-  //       closeModal();
-  //     }
-  //   }
-
-  //   window.addEventListener("keydown", handleKeyDown);
-
-  //   return () => {
-
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [closeModal]);
-  // function showBigImg(e) {
-  //   if (e.target.id === "") {
-  //     find("");
-  //     closeModal();
-  //   }
-
-  //   return find(e.target.id);
-  // }
-
+const ImageGallery = ({ data, onImgClick }) => {
   return (
     data.length > 0 && (
       <ul className={css.imgList}>
@@ -38,8 +12,9 @@ const ImageGallery = ({ data, find, closeModal }) => {
               id={id}
               alt={description}
               bigImg={regular}
-              findId={find}
-              closeModal={closeModal}
+              onClick={() => {
+                onImgClick(regular, description);
+              }}
             />
             <p>Likes: {likes}</p>
           </li>
